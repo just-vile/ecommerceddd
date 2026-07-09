@@ -1,0 +1,36 @@
+﻿namespace EcommerceDDD.Core.Infrastructure.Identity;
+
+public static class JwtExtension
+{
+	public static IServiceCollection AddJwtAuthentication(this IServiceCollection services,
+		IConfiguration configuration)
+	{
+		if (configuration is null)
+			throw new ArgumentNullException(nameof(configuration));
+
+		var authority = configuration
+			.GetValue<string>("TokenIssuerSettings:Authority")
+			?? throw new ArgumentNullException("TokenIssuerSettings:Authority section was not found");
+
+		services.AddAuthentication(options =>
+		{
+			options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+			options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+		})
+		.AddJwtBearer(options =>
+		{
+			options.RequireHttpsMetadata = false;
+			options.Authority = authority;
+			options.MapInboundClaims = false;
+			options.TokenValidationParameters = new TokenValidationParameters
+			{
+				ValidateIssuer = true,
+				ValidateAudience = false,
+				RoleClaimType = JwtClaimTypes.Role,
+				NameClaimType = JwtClaimTypes.Name
+			};
+		});
+
+		return services;
+	}
+}

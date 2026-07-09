@@ -1,0 +1,237 @@
+include:
+  - docker-compose.infra.yml
+
+x-dotnet-service: &dotnet-service
+  environment:
+    ASPNETCORE_ENVIRONMENT: '${ASPNETCORE_ENVIRONMENT:-Development}'
+    ASPNETCORE_URLS: 'http://+:80'
+    OTEL_EXPORTER_OTLP_ENDPOINT: 'http://aspire-dashboard:18889'
+  healthcheck:
+    test: curl --fail http://localhost:80/health || exit 1
+    interval: 30s
+    timeout: 10s
+    retries: 3
+    start_period: 30s
+  restart: on-failure
+
+services:
+  # Crosscutting
+  ecommerceddd-identityserver:
+    <<: *dotnet-service
+    build:
+      context: .
+      dockerfile: src/Crosscutting/EcommerceDDD.IdentityServer/Dockerfile
+    healthcheck:
+      test: curl --fail http://localhost:80/health || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    ports:
+      - '5001:80'
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  ecommerceddd-apigateway:
+    <<: *dotnet-service
+    build:
+      context: .
+      dockerfile: src/Crosscutting/EcommerceDDD.ApiGateway/Dockerfile
+    healthcheck:
+      test: curl --fail http://localhost:80/health || exit 1
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    ports:
+      - '5000:80'
+    restart: always
+    depends_on:
+      ecommerceddd-identityserver:
+        condition: service_started
+      ecommerceddd-product-catalog:
+        condition: service_started
+      ecommerceddd-inventory-management:
+        condition: service_started
+      ecommerceddd-customer-management:
+        condition: service_started
+      ecommerceddd-order-processing:
+        condition: service_started
+      ecommerceddd-payment-processing:
+        condition: service_started
+      ecommerceddd-shipment-processing:
+        condition: service_started
+
+  ecommerceddd-signalr:
+    <<: *dotnet-service
+    build:
+      context: .
+      dockerfile: src/Crosscutting/EcommerceDDD.SignalR/Dockerfile
+    ports:
+      - '5002:80'
+    restart: always
+    depends_on:
+      ecommerceddd-identityserver:
+        condition: service_started
+      ecommerceddd-order-processing:
+        condition: service_started
+
+  # Services
+  ecommerceddd-customer-management:
+    <<: *dotnet-service
+    build:
+      context: .
+      dockerfile: src/Services/EcommerceDDD.CustomerManagement/Dockerfile
+    ports:
+      - '8001:80'
+    depends_on:
+      postgres:
+        condition: service_healthy
+      ecommerceddd-identityserver:
+        condition: service_started
+
+  ecommerceddd-product-catalog:
+    <<: *dotnet-service
+    build:
+      context: .
+      dockerfile: src/Services/EcommerceDDD.ProductCatalog/Dockerfile
+    healthcheck:
+      test: curl --fail http://localhost:80/health || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    ports:
+      - '8002:80'
+    depends_on:
+      postgres:
+        condition: service_healthy
+      ecommerceddd-identityserver:
+        condition: service_started
+
+  ecommerceddd-inventory-management:
+    <<: *dotnet-service
+    build:
+      context: .
+      dockerfile: src/Services/EcommerceDDD.InventoryManagement/Dockerfile
+    healthcheck:
+      test: curl --fail http://localhost:80/health || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    ports:
+      - '8003:80'
+    depends_on:
+      postgres:
+        condition: service_healthy
+      ecommerceddd-product-catalog:
+        condition: service_started
+      ecommerceddd-identityserver:
+        condition: service_started
+
+  ecommerceddd-quote-management:
+    <<: *dotnet-service
+    build:
+      context: .
+      dockerfile: src/Services/EcommerceDDD.QuoteManagement/Dockerfile
+    ports:
+      - '8004:80'
+    depends_on:
+      postgres:
+        condition: service_healthy
+      ecommerceddd-product-catalog:
+        condition: service_started
+      ecommerceddd-identityserver:
+        condition: service_started
+
+  ecommerceddd-order-processing:
+    <<: *dotnet-service
+    build:
+      context: .
+      dockerfile: src/Services/EcommerceDDD.OrderProcessing/Dockerfile
+    healthcheck:
+      test: curl --fail http://localhost:80/health || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 90s
+    ports:
+      - '8005:80'
+    depends_on:
+      postgres:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+      connect:
+        condition: service_healthy
+      ecommerceddd-product-catalog:
+        condition: service_started
+      ecommerceddd-identityserver:
+        condition: service_started
+
+  ecommerceddd-payment-processing:
+    <<: *dotnet-service
+    build:
+      context: .
+      dockerfile: src/Services/EcommerceDDD.PaymentProcessing/Dockerfile
+    healthcheck:
+      test: curl --fail http://localhost:80/health || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 90s
+    ports:
+      - '8006:80'
+    depends_on:
+      postgres:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+      connect:
+        condition: service_healthy
+      ecommerceddd-product-catalog:
+        condition: service_started
+      ecommerceddd-identityserver:
+        condition: service_started
+
+  ecommerceddd-shipment-processing:
+    <<: *dotnet-service
+    build:
+      context: .
+      dockerfile: src/Services/EcommerceDDD.ShipmentProcessing/Dockerfile
+    healthcheck:
+      test: curl --fail http://localhost:80/health || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 90s
+    ports:
+      - '8007:80'
+    depends_on:
+      postgres:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+      connect:
+        condition: service_healthy
+      ecommerceddd-product-catalog:
+        condition: service_started
+      ecommerceddd-identityserver:
+        condition: service_started
+
+  # Frontend SPA (Angular)
+  # Usage: docker compose --profile frontend up
+  ecommerceddd-spa:
+    profiles: ["frontend"]
+    build:
+      context: .
+      dockerfile: src/EcommerceDDD.Spa/Dockerfile
+    ports:
+      - '4200:80'
+    restart: on-failure
+    depends_on:
+      ecommerceddd-apigateway:
+        condition: service_healthy

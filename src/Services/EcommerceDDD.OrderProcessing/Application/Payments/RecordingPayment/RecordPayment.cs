@@ -1,0 +1,36 @@
+﻿namespace EcommerceDDD.OrderProcessing.Application.Payments.RecordingPayment;
+
+public record class RecordPayment : ICommand, ITraceable
+{
+	public OrderId OrderId { get; private set; }
+	public PaymentId PaymentId { get; private set; }
+	public Money TotalPaid { get; private set; }
+
+	public static RecordPayment Create(
+		OrderId orderId,
+		PaymentId paymentId,
+		Money totalPaid)
+	{
+		if (paymentId is null)
+			throw new ArgumentNullException(nameof(paymentId));
+		if (orderId is null)
+			throw new ArgumentNullException(nameof(orderId));
+		if (totalPaid is null)
+			throw new ArgumentNullException(nameof(totalPaid));
+
+		return new RecordPayment(orderId, paymentId, totalPaid);
+	}
+
+	public IEnumerable<KeyValuePair<string, object>> GetSpanTags() =>
+		[new(TelemetryTags.OrderId, OrderId.Value)];
+
+	private RecordPayment(
+		OrderId orderId,
+		PaymentId paymentId,
+		Money totalPaid)
+	{
+		PaymentId = paymentId;
+		OrderId = orderId;
+		TotalPaid = totalPaid;
+	}
+}

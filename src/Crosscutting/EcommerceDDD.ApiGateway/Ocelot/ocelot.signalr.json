@@ -1,0 +1,29 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/v{version}/signalr",
+      "UpstreamPathTemplate": "/api/v{version}/signalr",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ecommerceddd-signalr",
+          "Port": 80
+        }
+      ],
+      "UpstreamHttpMethod": [ "GET" ],
+      "UseWebSockets": true
+    },
+    {
+      "DownstreamPathTemplate": "/api/v{version}/signalr/{everything}",
+      "UpstreamPathTemplate": "/api/v{version}/signalr/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ecommerceddd-signalr",
+          "Port": 80
+        }
+      ],
+      "UpstreamHttpMethod": [ "POST", "GET", "PUT", "DELETE" ]
+    }
+  ]
+}

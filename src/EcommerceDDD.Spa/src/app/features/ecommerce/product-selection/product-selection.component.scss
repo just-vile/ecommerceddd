@@ -1,0 +1,92 @@
+.product-selection-container {
+  margin-top: 20px;
+  width: 100%;
+  margin-bottom: 20px;
+  float: left;
+
+  .product-list-container {
+    width: 65%;
+    float: left;
+
+    .product-list {
+      width: 100%;
+      text-align: left;
+
+      .product-container {
+        margin-bottom: 15px;
+        background-color: #fffdfd;
+
+        .badge-category {
+          background-color: rgb(0, 118, 192);
+        }
+        .product-title {
+          font-size: 22px;
+        }
+        .product-img {
+          width: 100px;
+          font-weight: bold;
+        }
+        .product-description {
+          text-align: justify;
+          text-justify: inter-word;
+          width: 98%;
+        }
+        .product-price {
+          font-size: 23px;
+          text-align: right;
+          float: right;
+          font-weight: bold;
+
+          .currency-symbol {
+            font-size: 14px;
+            vertical-align: top;
+            top: 4px;
+            position: relative;
+          }
+        }
+        .product-stock-quantity {
+          font-size: 23px;
+          text-align: left;
+        }
+        /* Orange-ish font color for less than or equal to 10 in stock */
+        .product-stock-quantity.less-than-ten {
+          color: rgb(142, 88, 13);
+        }
+        /* Green font color for more than 10 in stock */
+        .product-stock-quantity.more-than-ten {
+          color: green;
+        }
+        /* Red font color for out of stock */
+        .product-stock-quantity.out-of-stock {
+          color: rgb(5, 5, 5);
+        }
+        .add-product-container {
+          width: 200px;
+          text-align: right;
+          float: right;
+        }
+        .change-quantity-container {
+          width: 100%;
+
+          .quantity-selector {
+            border-radius: 4px;
+            height: 38px;
+            margin-right: 10px;
+            float: right;
+          }
+          .add-change-item-button {
+            width: 150px;
+            float: right;
+          }
+        }
+      }
+    }
+  }
+
+  .cart-details-container {
+    width: 33.5%;
+    margin-left: 10px;
+    float: right;
+    background-color: #fffdfd;
+  }
+}

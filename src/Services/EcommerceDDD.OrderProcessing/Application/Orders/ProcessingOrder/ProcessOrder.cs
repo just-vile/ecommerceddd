@@ -1,0 +1,36 @@
+﻿namespace EcommerceDDD.OrderProcessing.Application.Orders.ProcessingOrder;
+
+public record class ProcessOrder : ICommand, ITraceable
+{
+	public CustomerId CustomerId { get; private set; }
+	public OrderId OrderId { get; private set; }
+	public QuoteId QuoteId { get; private set; }
+
+	public static ProcessOrder Create(
+		CustomerId customerId,
+		OrderId orderId,
+		QuoteId quoteId)
+	{
+		if (customerId is null)
+			throw new ArgumentNullException(nameof(customerId));
+		if (orderId is null)
+			throw new ArgumentNullException(nameof(orderId));
+		if (quoteId is null)
+			throw new ArgumentNullException(nameof(quoteId));
+
+		return new ProcessOrder(customerId, orderId, quoteId);
+	}
+
+	public IEnumerable<KeyValuePair<string, object>> GetSpanTags() =>
+		[new(TelemetryTags.OrderId, OrderId.Value)];
+
+	private ProcessOrder(
+		CustomerId customerId,
+		OrderId orderId,
+		QuoteId quoteId)
+	{
+		CustomerId = customerId;
+		OrderId = orderId;
+		QuoteId = quoteId;
+	}
+}

@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+	<LangVersion>12</LangVersion>
+	<Platforms>AnyCPU;x64</Platforms>
+	<Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="HttpRequests\**" />
+    <EmbeddedResource Remove="HttpRequests\**" />
+    <None Remove="HttpRequests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<PackageReference Include="FluentResults" />
+	<PackageReference Include="Marten" />
+	<PackageReference Include="Newtonsoft.Json" />
+
+	<PackageReference Include="NSubstitute" />
+	<PackageReference Include="Microsoft.CodeAnalysis.Common" />
+	<PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" />
+  </ItemGroup>
+
+</Project>

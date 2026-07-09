@@ -1,0 +1,45 @@
+namespace EcommerceDDD.PaymentProcessing.API.Controllers;
+
+[Authorize(Roles = Roles.M2MAccess)]
+[ApiController]
+[ApiVersion(ApiVersions.V2)]
+[Route("api/v{version:apiVersion}/internal/payments")]
+public class PaymentsController(
+	ICommandBus commandBus,
+	IQueryBus queryBus
+) : CustomControllerBase(commandBus, queryBus)
+{
+	[HttpPost]
+	[Authorize(Policy = Policies.CanWrite)]
+	[ProducesResponseType(StatusCodes.Status200OK)]
+	public async Task<IActionResult> RequestCreate([FromBody] PaymentRequest request,
+		CancellationToken cancellationToken) =>
+		await Response(
+			RequestPayment.Create(
+				CustomerId.Of(request.CustomerId),
+				OrderId.Of(request.OrderId),
+				Money.Of(request.TotalAmount, request.CurrencyCode),
+				Currency.OfCode(request.CurrencyCode),
+				request.ProductItems.Select(p =>
+					new ProductItem(
+						ProductId.Of(p.ProductId),
+						p.Quantity)
+					).ToList()
+			),
+			cancellationToken
+		);
+
+	[HttpDelete("{paymentId:guid}")]
+	[Authorize(Policy = Policies.CanDelete)]
+	[ProducesResponseType(StatusCodes.Status200OK)]
+	public async Task<IActionResult> Cancel([FromRoute] Guid paymentId, [FromBody] CancelPaymentRequest request,
+		CancellationToken cancellationToken) =>
+		await Response(
+			CancelPayment.Create(
+				OrderId.Of(request.OrderId),
+				PaymentId.Of(paymentId),
+				request.PaymentCancellationReason
+			),
+			cancellationToken
+		);
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" Sdk="Microsoft.Docker.Sdk">
+  <PropertyGroup Label="Globals">
+    <ProjectVersion>2.1</ProjectVersion>
+    <DockerTargetOS>Linux</DockerTargetOS>
+    <ProjectGuid>9a7392e9-3aca-4a70-bdab-45dd99f14fe4</ProjectGuid>
+    <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
+    <DockerServiceUrl>{Scheme}://localhost:5000/swagger/index.html</DockerServiceUrl>
+    <DockerServiceName>ecommerceddd-apigateway</DockerServiceName>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="Directory.Packages.props" />
+    <None Include="docker-compose.yml" />
+  </ItemGroup>
+</Project>

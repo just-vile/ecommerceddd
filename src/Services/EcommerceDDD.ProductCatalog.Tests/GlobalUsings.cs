@@ -1,0 +1,13 @@
+global using FluentResults;
+global using EcommerceDDD.Core.CQRS;
+global using EcommerceDDD.Core.CQRS.CommandHandling;
+global using EcommerceDDD.Core.CQRS.QueryHandling;
+global using EcommerceDDD.Core.Exceptions;
+global using EcommerceDDD.Core.Infrastructure.WebApi;
+global using EcommerceDDD.ProductCatalog.API.Controllers;
+global using EcommerceDDD.ProductCatalog.API.Controllers.Requests;
+global using EcommerceDDD.ProductCatalog.Application.Products.GettingProducts;
+global using EcommerceDDD.ProductCatalog.Domain;
+global using Microsoft.AspNetCore.Mvc;
+global using NSubstitute;
+global using Xunit;

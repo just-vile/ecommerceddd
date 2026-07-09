@@ -1,0 +1,19 @@
+{
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/orderProcessing/api/v{version}/orders/{everything}",
+      "DownstreamPathTemplate": "/api/v{version}/orders/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ecommerceddd-order-processing",
+          "Port": 80
+        }
+      ],
+      "UpstreamHttpMethod": [ "GET", "PUT", "DELETE", "POST" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    }
+  ]
+}

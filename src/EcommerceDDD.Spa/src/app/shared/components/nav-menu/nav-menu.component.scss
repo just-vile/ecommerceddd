@@ -1,0 +1,44 @@
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+.app-title {
+  font-family: Architects Daughter;
+  color: white;
+}
+
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.box-shadow {
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.05);
+}
+
+.main-title-container {
+  text-align: center;
+  width: 100%;
+  height: 70px;
+  background-color: #2879d0;
+  padding-top: 15px;
+}
+
+.nav-container {
+  text-align: left;
+
+  .currency-container {
+    width: 125px;
+    float: left;
+  }
+  .currency-selector-container {
+    width: 50px;
+    float: left;
+  }
+}

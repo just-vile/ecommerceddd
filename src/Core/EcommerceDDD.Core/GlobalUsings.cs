@@ -1,0 +1,15 @@
+global using EcommerceDDD.Core.CQRS.CommandHandling;
+global using EcommerceDDD.Core.CQRS.QueryHandling;
+global using EcommerceDDD.Core.Domain;
+global using EcommerceDDD.Core.EventBus;
+global using EcommerceDDD.Core.Exceptions;
+global using EcommerceDDD.Core.Persistence;
+global using FluentResults;
+global using Marten.Schema;
+global using Newtonsoft.Json;
+global using System;
+global using System.Collections.Generic;
+global using System.Linq;
+global using System.Threading;
+global using System.Threading.Tasks;
+global using System.Diagnostics;
