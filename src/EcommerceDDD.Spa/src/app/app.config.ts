@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { APP_INITIALIZER, ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -14,11 +14,19 @@ import { CurrencyNotificationService } from '@features/ecommerce/services/curren
 import { SignalrService } from '@core/services/signalr.service';
 import { KiotaClientService } from '@core/services/kiota-client.service';
 import { LoaderService } from '@core/services/loader.service';
+import { RuntimeConfigService } from '@core/services/runtime-config.service';
 import { authInterceptor } from '@core/interceptors/auth.interceptor';
 import { loaderInterceptor } from '@core/interceptors/loader.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    RuntimeConfigService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (configService: RuntimeConfigService) => () => configService.load(),
+      deps: [RuntimeConfigService],
+      multi: true,
+    },
     provideZoneChangeDetection(),
     provideAnimations(),
     provideRouter(routes),

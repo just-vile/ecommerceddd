@@ -2,10 +2,10 @@ import { Injectable, inject } from '@angular/core';
 import { FetchRequestAdapter } from '@microsoft/kiota-http-fetchlibrary';
 import { AnonymousAuthenticationProvider } from '@microsoft/kiota-abstractions';
 import { ApiClient, createApiClient } from 'src/app/clients/apiClient';
-import { environment } from '@environments/environment';
 import { TokenStorageService } from './token-storage.service';
 import { BearerTokenAuthProvider } from './bearer-token-auth-provider';
 import { ApiErrorHandlerService } from './api-error-handler.service';
+import { RuntimeConfigService } from './runtime-config.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +13,7 @@ import { ApiErrorHandlerService } from './api-error-handler.service';
 export class KiotaClientService {
   private readonly tokenService = inject(TokenStorageService);
   private readonly apiErrorHandler = inject(ApiErrorHandlerService);
+  private readonly runtimeConfig = inject(RuntimeConfigService);
 
   private readonly _client: ApiClient;
   private readonly _anonymousClient: ApiClient;
@@ -24,14 +25,14 @@ export class KiotaClientService {
     );
 
     const requestAdapter = new FetchRequestAdapter(bearerAuthProvider);
-    requestAdapter.baseUrl = environment.gatewayBaseUrl;
+    requestAdapter.baseUrl = this.runtimeConfig.apiBaseUrl;
     this._client = createApiClient(requestAdapter);
 
     // Anonymous client
     const anonymousAdapter = new FetchRequestAdapter(
       new AnonymousAuthenticationProvider()
     );
-    anonymousAdapter.baseUrl = environment.gatewayBaseUrl;
+    anonymousAdapter.baseUrl = this.runtimeConfig.apiBaseUrl;
     this._anonymousClient = createApiClient(anonymousAdapter);
   }
 

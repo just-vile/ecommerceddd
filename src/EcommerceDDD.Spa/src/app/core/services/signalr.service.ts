@@ -1,14 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
-import { environment } from '@environments/environment';
+import { RuntimeConfigService } from './runtime-config.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SignalrService {
+  private readonly runtimeConfig = inject(RuntimeConfigService);
   connection!: signalR.HubConnection;
   constructor() {
-    this.connection = this.buildConnection(environment.signalrOrdersHubUrl);
+    this.connection = this.buildConnection(this.runtimeConfig.signalRHubUrl);
   }
 
   // Start Hub Connection and Register events
