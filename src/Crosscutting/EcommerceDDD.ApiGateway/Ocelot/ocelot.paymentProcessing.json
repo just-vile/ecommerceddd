@@ -6,7 +6,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "ecommerceddd-payment-processing",
+          "Host": "ecommerceddd-payment-processing-api",
           "Port": 80
         }
       ],

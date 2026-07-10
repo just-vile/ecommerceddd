@@ -6,7 +6,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "ecommerceddd-product-catalog",
+          "Host": "ecommerceddd-product-catalog-api",
           "Port": 80
         }
       ],
@@ -21,7 +21,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "ecommerceddd-product-catalog",
+          "Host": "ecommerceddd-product-catalog-api",
           "Port": 80
         }
       ],

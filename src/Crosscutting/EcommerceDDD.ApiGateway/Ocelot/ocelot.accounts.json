@@ -6,7 +6,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "ecommerceddd-identityserver",
+          "Host": "ecommerceddd-identityserver-api",
           "Port": 80
         }
       ],

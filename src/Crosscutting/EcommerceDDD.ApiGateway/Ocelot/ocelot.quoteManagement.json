@@ -6,7 +6,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "ecommerceddd-quote-management",
+          "Host": "ecommerceddd-quote-management-api",
           "Port": 80
         }
       ],

@@ -10,7 +10,7 @@
       "DownstreamHeaderTransform": {},
       "DownstreamHostAndPorts": [
         {
-          "Host": "ecommerceddd-identityserver",
+          "Host": "ecommerceddd-identityserver-api",
           "Port": 80
         }
       ],
@@ -58,7 +58,7 @@
       "DownstreamHeaderTransform": {},
       "DownstreamHostAndPorts": [
         {
-          "Host": "ecommerceddd-customer-management",
+          "Host": "ecommerceddd-customer-management-api",
           "Port": 80
         }
       ],
@@ -109,7 +109,7 @@
       "DownstreamHeaderTransform": {},
       "DownstreamHostAndPorts": [
         {
-          "Host": "ecommerceddd-inventory-management",
+          "Host": "ecommerceddd-inventory-management-api",
           "Port": 80
         }
       ],
@@ -166,7 +166,7 @@
       "DownstreamHeaderTransform": {},
       "DownstreamHostAndPorts": [
         {
-          "Host": "ecommerceddd-order-processing",
+          "Host": "ecommerceddd-order-processing-api",
           "Port": 80
         }
       ],
@@ -224,7 +224,7 @@
       "DownstreamHeaderTransform": {},
       "DownstreamHostAndPorts": [
         {
-          "Host": "ecommerceddd-payment-processing",
+          "Host": "ecommerceddd-payment-processing-api",
           "Port": 80
         }
       ],
@@ -280,7 +280,7 @@
       "DownstreamHeaderTransform": {},
       "DownstreamHostAndPorts": [
         {
-          "Host": "ecommerceddd-product-catalog",
+          "Host": "ecommerceddd-product-catalog-api",
           "Port": 80
         }
       ],
@@ -336,7 +336,7 @@
       "DownstreamHeaderTransform": {},
       "DownstreamHostAndPorts": [
         {
-          "Host": "ecommerceddd-product-catalog",
+          "Host": "ecommerceddd-product-catalog-api",
           "Port": 80
         }
       ],
@@ -393,7 +393,7 @@
       "DownstreamHeaderTransform": {},
       "DownstreamHostAndPorts": [
         {
-          "Host": "ecommerceddd-quote-management",
+          "Host": "ecommerceddd-quote-management-api",
           "Port": 80
         }
       ],
@@ -451,7 +451,7 @@
       "DownstreamHeaderTransform": {},
       "DownstreamHostAndPorts": [
         {
-          "Host": "ecommerceddd-shipment-processing",
+          "Host": "ecommerceddd-shipment-processing-api",
           "Port": 80
         }
       ],
@@ -506,7 +506,7 @@
       "DownstreamHeaderTransform": {},
       "DownstreamHostAndPorts": [
         {
-          "Host": "ecommerceddd-shipment-processing",
+          "Host": "ecommerceddd-shipment-processing-api",
           "Port": 80
         }
       ],
@@ -563,7 +563,7 @@
       "DownstreamHeaderTransform": {},
       "DownstreamHostAndPorts": [
         {
-          "Host": "ecommerceddd-signalr",
+          "Host": "ecommerceddd-signalr-api",
           "Port": 80
         }
       ],
@@ -611,7 +611,7 @@
       "DownstreamHeaderTransform": {},
       "DownstreamHostAndPorts": [
         {
-          "Host": "ecommerceddd-signalr",
+          "Host": "ecommerceddd-signalr-api",
           "Port": 80
         }
       ],
