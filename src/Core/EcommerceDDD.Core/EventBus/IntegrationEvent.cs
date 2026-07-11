@@ -6,7 +6,7 @@ public class IntegrationEvent : IIntegrationEvent
     public string EventName { get; } // Event name identifier
     public string JSON_Payload { get; } // Serialized data
     public string? TraceContext { get; } // W3C traceparent for distributed tracing
-    public DateTime CreatedAt { get; } = DateTime.UtcNow;
+    public DateTimeOffset CreatedAt { get; } = DateTimeOffset.UtcNow;
 
     public static IntegrationEvent FromNotification(INotification domainEvent)
     {

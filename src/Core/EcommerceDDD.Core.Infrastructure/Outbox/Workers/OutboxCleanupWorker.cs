@@ -41,7 +41,7 @@ public class OutboxCleanupWorker(
         await using var scope = scopeFactory.CreateAsyncScope();
         var session = scope.ServiceProvider.GetRequiredService<IDocumentSession>();
 
-        var cutoff = DateTime.UtcNow.AddDays(-RetentionDays);
+        var cutoff = DateTimeOffset.UtcNow.AddDays(-RetentionDays);
         session.DeleteWhere<IntegrationEvent>(e => e.CreatedAt < cutoff);
         await session.SaveChangesAsync(cancellationToken);
 
