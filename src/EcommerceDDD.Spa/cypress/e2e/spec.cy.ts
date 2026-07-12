@@ -108,7 +108,7 @@ describe('EcommerceDDD E2E Flow', () => {
     cy.wait('@loginRequest');
     cy.visit('/home');
     cy.url().should('include', '/home');
-    cy.contains('h1', 'Welcome to Ecommerce DDD!').should('be.visible');
+    cy.contains('h1', 'Welcome to my Ecommerce app!').should('be.visible');
   });
 
   it('should add products to cart and place an order', () => {
