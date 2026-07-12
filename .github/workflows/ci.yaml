@@ -207,7 +207,7 @@ jobs:
         with:
           token: ${{ secrets.GITOPS_REPO_PAT }}
           path: gitops
-          commit-message: "chore(dev): bump images to sha-${{ needs.detect-changes.outputs.sha_short }} [skip ci]"
+          commit-message: "chore(dev): bump images to sha-${{ needs.detect-changes.outputs.sha_short }}"
           title: "chore(dev): bump images to sha-${{ needs.detect-changes.outputs.sha_short }}"
           body: |
             Automated image tag bump from app CI.
