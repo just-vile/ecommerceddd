@@ -1,7 +1,7 @@
 <header>
   <div class="main-title-container">
     <a class="navbar-brand" [routerLink]="['/home']">
-      <h2 class="app-title">Ecommerce DDD - SPA</h2>
+      <h2 class="app-title">Awesome Ecommerce App</h2>
     </a>
   </div>
   @if (isLoggedIn) {
@@ -76,7 +76,7 @@
                   [routerLinkActive]="['link-active']"
                   style="margin-left: 30px">
                   <a
-                    class="nav-link text-primary underlineHover"
+                    class="nav-link underlineHover logout-link"
                     (click)="logout()"
                     style="cursor: pointer">
                     <fa-icon [icon]="faSignOutAlt"></fa-icon>

@@ -1,7 +1,8 @@
 @import url("https://fonts.googleapis.com/css?family=Architects+Daughter");
 
 :root {
-  --spa-primary-color: #0ea5a4;
+  --spa-primary-color: #0f766e;
+  --spa-surface-tint: #d9f3ef;
 }
 
 .is-invalid {
@@ -179,6 +180,12 @@ hr {
 
 .align-to-right {
   float: right;
+}
+
+.hero-banner {
+  border: 1px solid #b9e5dd;
+  background-color: var(--spa-surface-tint);
+  color: #0b4f4b;
 }
 
 /* Form Actions */
