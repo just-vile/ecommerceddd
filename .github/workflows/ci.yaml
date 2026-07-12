@@ -175,7 +175,7 @@ jobs:
       - name: Checkout GitOps repo
         uses: actions/checkout@v4
         with:
-          repository: ${{ github.repository_owner }}/EcommerceDDD-gitops
+          repository: ${{ github.repository_owner }}/ecommerceddd-gitops
           token: ${{ secrets.GITOPS_REPO_PAT }}
           path: gitops
           ref: main
