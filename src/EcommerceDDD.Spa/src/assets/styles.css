@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css?family=Architects+Daughter");
 
+:root {
+  --spa-primary-color: #0ea5a4;
+}
+
 .is-invalid {
   border: 1px solid #ff8080 !important;
 }
@@ -20,7 +24,7 @@ h2.inactive {
 
 h2.active {
   color: #0d0d0d;
-  border-bottom: 2px solid #ee0ed8;
+  border-bottom: 2px solid var(--spa-primary-color);
 }
 
 /* FORM TYPOGRAPHY*/
@@ -67,7 +71,7 @@ input[type="date"] {
 input[type="text"],
 input[type="password"]:focus {
   background-color: #fff;
-  border-bottom: 2px solid #b933da;
+  border-bottom: 2px solid var(--spa-primary-color);
 }
 
 /* ANIMATIONS */
@@ -179,7 +183,7 @@ hr {
 
 /* Form Actions */
 .badge {
-  background-color: rgb(240, 28, 201);
+  background-color: var(--spa-primary-color);
 }
 .cursor-loader {
   cursor: wait !important;
