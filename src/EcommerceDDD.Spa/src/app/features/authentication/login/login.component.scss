@@ -11,6 +11,19 @@
     .login-button {
       width: 100%;
       margin: 0;
+      background-color: #0f766e;
+      border-color: #0f766e;
+
+      &:hover,
+      &:focus {
+        background-color: #115e59;
+        border-color: #115e59;
+      }
+
+      &:disabled {
+        background-color: #7cb8b2;
+        border-color: #7cb8b2;
+      }
     }
 
     .create-account-link {
@@ -20,9 +33,4 @@
       text-decoration: none;
     }
   }
-}
-
-.stargazers-container {
-  width: 30.5%;
-  margin: 0 auto;
 }
