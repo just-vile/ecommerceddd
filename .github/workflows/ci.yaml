@@ -2,7 +2,7 @@ name: Build, Push, and Bump GitOps
  
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
  
 permissions:
   contents: read
@@ -175,7 +175,7 @@ jobs:
       - name: Checkout GitOps repo
         uses: actions/checkout@v4
         with:
-          repository: ${{ github.repository_owner }}/ecommerceddd-gitops
+          repository: ${{ github.repository_owner }}/EcommerceDDD-gitops
           token: ${{ secrets.GITOPS_REPO_PAT }}
           path: gitops
           ref: main
@@ -202,17 +202,23 @@ jobs:
             kustomize edit set image "${image}=${image}:sha-${SHA_SHORT}"
           done
  
-          cd ../../..
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Create PR to GitOps main
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITOPS_REPO_PAT }}
+          path: gitops
+          commit-message: "chore(dev): bump images to sha-${{ needs.detect-changes.outputs.sha_short }} [skip ci]"
+          title: "chore(dev): bump images to sha-${{ needs.detect-changes.outputs.sha_short }}"
+          body: |
+            Automated image tag bump from app CI.
  
-          if git diff --quiet; then
-            echo "No GitOps changes to commit."
-            exit 0
-          fi
- 
-          service_list=$(echo "$CHANGED_SERVICES_JSON" | jq -r 'join(", ")')
-          git add apps/overlays/dev/kustomization.yaml
-          git commit -m "chore(dev): bump ${service_list} to sha-${SHA_SHORT} [skip ci]"
-          git push origin HEAD:main
+            - Source repo: ${{ github.repository }}
+            - Source commit: ${{ github.sha }}
+            - New tag: sha-${{ needs.detect-changes.outputs.sha_short }}
+            - Services: ${{ needs.detect-changes.outputs.changed_services }}
+          branch: ci/bump-gitops-sha-${{ needs.detect-changes.outputs.sha_short }}
+          base: main
+          delete-branch: true
+          add-paths: |
+            apps/overlays/dev/kustomization.yaml
  
